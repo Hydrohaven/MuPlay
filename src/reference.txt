@@ -1,0 +1,3 @@
+Grammar File Guide - https://www.w3.org/TR/jsgf/
+Sphinx4 Setup - https://cmusphinx.github.io/wiki/tutorialsphinx4/
+Sphinx4 Java Documentation - https://cmusphinx.github.io/doc/sphinx4/javadoc/

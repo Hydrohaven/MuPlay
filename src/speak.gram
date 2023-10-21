@@ -1,0 +1,12 @@
+#JSGF V1.0;
+
+grammar muplyCommands;
+
+public <playback> = music (play | pause | skip | previous);
+public <toggle> = toggle shuffle;
+public <history> = clear history;
+public <end> = end program;
+public <svol> = volume (one | two | three | four | five | six | seven /*| eight | nine | ten*/);
+public <gvol> = (current | get) volume;
+public <unk> = music|play|skip|pause|back|one|two|three|four|five|six|seven|toggle|shuffle|end|clear|history|current|program;
+public <accuracy> = <unk> <unk>;
