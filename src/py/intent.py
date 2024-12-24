@@ -55,7 +55,7 @@ def output_command(phrase: str) -> str:
     similarities: util.Tensor = util.cos_sim(user_input_embedding, command_embeddings)
     best_match_idx = similarities.argmax()
     sim_list: list[float] = list(similarities)[0]
-    print(sim_list := list(similarities)[0])
+    # print(sim_list := list(similarities)[0])
 
     # Output the identified command, choses one with a 65% match or higher
     command = commands[best_match_idx] if sim_list[best_match_idx] >= SIM_THRESHOLD else "Invalid command"

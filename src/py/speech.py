@@ -14,6 +14,9 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
 
+from fastapi import FastAPI
+app = FastAPI()
+
 
 ACCESS_KEY = os.environ["PORCUPINE_ACCESS_KEY"]
 SAMPLE_RATE = 16000   # 16 kHz
@@ -80,7 +83,7 @@ def _record_audio() -> bytes:
 
             # Stop recording if silence persists for the required duration
             if silent_chunks > max_silent_chunks:
-                print("Silence detected. Stopping recording.")
+                print("Silence detected. Stopping recording.\n")
                 break
     finally:
         # Stop Recording
@@ -138,7 +141,7 @@ def listen(func) -> None:
                 print("Transcription: ", transcription)
                 
                 command = func(transcription)
-                # send_to_backend(command)
+                send_transcription_to_server(command)
 
                 if command == 'Shut down':
                     print('Shuting Down...')
@@ -155,12 +158,16 @@ def listen(func) -> None:
         p.terminate()
         porcupine.delete()
 
-
-def send_to_backend(intent):
+def send_transcription_to_server(transcription: str) -> None:
+    """
+    Sends the transcription to the FastAPI server.
+    """
+    url = "http://127.0.0.1:8000/post"
     try:
-        response = requests.post("http://localhost:8000/command", json={"intent": intent})
-        response.raise_for_status()  # Raise an error for HTTP status codes 4xx/5xx
-        print("Response from server:", response.text)
+        response = requests.post(url, json={"intent": transcription})
+        if response.status_code == 200:
+            print(f"Server response: {response.json()}")
+        else:
+            print(f"Failed to send transcription: {response.status_code}")
     except requests.exceptions.RequestException as e:
-        print("Error sending request:", e)
-
+        print(f"Error sending transcription: {e}")
