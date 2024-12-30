@@ -1,4 +1,6 @@
 env/
+__pycache__/
 test.py
 test.go
 .env
+notes.txt
