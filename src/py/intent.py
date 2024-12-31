@@ -16,14 +16,12 @@ SIM_THRESHOLD = 0.65
 
 # Predefined commands and their embeddings, python sends to go hashmap that stores <phrase, function> pairs 
 commands = [
-    "Play the music",
-    "Pause the music",
+    "Play the song",
+    "Pause the song",
     "Skip the song",
     "Play the last song",
     "Increase the volume",
-    "Increase the volume slightly",
     "Decrease the volume",
-    "Decreate the volume slightly",
     "Turn shuffle on",
     "Shut down"
 ]
@@ -38,10 +36,8 @@ def output_command(phrase: str) -> str:
     Main function of NLP component. Deciphers intent of parameter phrase using 
     Hugging Face Sentence Tansformers, prints closest matching command (65% or higher).
 
-    Parameters
-    ----------
-    phrase : str
-        A string of transcribed text.
+    Args
+    phrase (str) : A string of transcribed text.
 
     """
 
@@ -55,7 +51,7 @@ def output_command(phrase: str) -> str:
     similarities: util.Tensor = util.cos_sim(user_input_embedding, command_embeddings)
     best_match_idx = similarities.argmax()
     sim_list: list[float] = list(similarities)[0]
-    # print(sim_list := list(similarities)[0])
+    print(sim_list := list(similarities)[0])
 
     # Output the identified command, choses one with a 65% match or higher
     command = commands[best_match_idx] if sim_list[best_match_idx] >= SIM_THRESHOLD else "Invalid command"

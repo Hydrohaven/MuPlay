@@ -162,12 +162,13 @@ def send_transcription_to_server(transcription: str) -> None:
     """
     Sends the transcription to the FastAPI server.
     """
-    url = "http://127.0.0.1:8000/post"
+    url = "http://localhost:8081/spotify"
     try:
         response = requests.post(url, json={"intent": transcription})
-        # if response.status_code == 200:
-        #     print(f"Server response: {response.json()}")
-        # else:
-        #     print(f"Failed to send transcription: {response.status_code}")
+
+        if response.status_code == 200:
+            print("Intent sent successfully:", transcription)
+        else:
+            print("Failed to send intent. Server responded with:", response.status_code)
     except requests.exceptions.RequestException as e:
         print(f"Error sending transcription: {e}")
