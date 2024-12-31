@@ -88,7 +88,7 @@ func modifyPlayback(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 
 	switch payload.Intent {
-	case "Play the song":
+	case "Play the song", "Unpause the song":
 		executeCommand(client.Play, ctx, w)
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Playback Started"))
@@ -100,10 +100,19 @@ func modifyPlayback(w http.ResponseWriter, r *http.Request) {
 		executeCommand(client.Next, ctx, w)
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Skipped song"))
-	case "Play the last song":
+	case "Play the last song", "Play the previous song":
 		executeCommand(client.Previous, ctx, w)
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte("Previous song"))
+	case "Increase the volume", "Turn up the volume":
+		// TODO: IMPLEMENT THIS FUNCTION
+		break
+	case "Decrease the volume", "Turn down the volume":
+		// TODO: IMPLEMENT THIS FUNCTION
+		break
+	case "Turn shuffle on":
+		// TODO: IMPLEMENT THIS FUNCTION
+		break
 	case "Shut down":
 		os.Exit(1)
 	}
@@ -115,9 +124,6 @@ func executeCommand(f func(context.Context) error, ctx context.Context, w http.R
 		log.Println("Error with playback:", err)
 		http.Error(w, "Failed to modify playback", http.StatusInternalServerError)
 	}
-
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Playback Started"))
 }
 
 // Authenticates a user using global auth and ch variables
