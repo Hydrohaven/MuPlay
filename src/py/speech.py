@@ -165,9 +165,9 @@ def send_transcription_to_server(transcription: str) -> None:
     url = "http://127.0.0.1:8000/post"
     try:
         response = requests.post(url, json={"intent": transcription})
-        if response.status_code == 200:
-            print(f"Server response: {response.json()}")
-        else:
-            print(f"Failed to send transcription: {response.status_code}")
+        # if response.status_code == 200:
+        #     print(f"Server response: {response.json()}")
+        # else:
+        #     print(f"Failed to send transcription: {response.status_code}")
     except requests.exceptions.RequestException as e:
         print(f"Error sending transcription: {e}")

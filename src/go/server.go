@@ -28,10 +28,7 @@ func getIntent() string {
 		return ""
 	}
 
-	intent, exists := data["intent"]
-	if exists {
-		fmt.Println(intent)
-	}
+	intent := data["intent"]
 
 	return intent
 }

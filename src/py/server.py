@@ -23,6 +23,6 @@ async def get_transcription():
     """
     Gets transcription data from the client
     """
-    if latest_intent['intent'] == None:
+    if latest_intent["intent"] == None:
         return {"intent": "Invalid command"}
     return latest_intent
