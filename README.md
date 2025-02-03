@@ -1,4 +1,7 @@
 # μPlay
+## Description
+μPlay is a voice-controlled music player utilizing a wide range of technologies that I have never used before.
+
 ## Usage & Setup
 Setup guide because I keep forgetting how to do it
 
