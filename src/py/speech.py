@@ -14,10 +14,6 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
 
-from fastapi import FastAPI
-app = FastAPI()
-
-
 ACCESS_KEY = os.environ["PORCUPINE_ACCESS_KEY"]
 SAMPLE_RATE = 16000   # 16 kHz
 FILE_NAME = 's.wav'
@@ -152,7 +148,11 @@ def listen(func) -> None:
         print("Stopping...")
     finally:
         # Cleanup resources
-        os.remove(FILE_NAME)
+        try:
+            os.remove(FILE_NAME)
+        except FileNotFoundError as e:
+            print(f"{FILE_NAME} not found")
+
         stream.stop_stream()
         stream.close()
         p.terminate()
