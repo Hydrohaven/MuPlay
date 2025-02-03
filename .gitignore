@@ -4,3 +4,4 @@ test.py
 test.go
 .env
 notes.txt
+src/py/__pycache__/
